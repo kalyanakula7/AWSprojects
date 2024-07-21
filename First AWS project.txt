@@ -1,0 +1,21 @@
+Create a VPC to use server in production environment.
+
+step -1 creating a VPC with 2 public subnet and two private subnet in two availability zones
+
+step-2 creating a auto scaling group to launch instances in private subnet for webserver hosting in private subnet.
+using launch template function in Auto scaling group and assigned to both private subnet created in VPC and give configure maximum instance as 4, and use mixed behaviour. and create Auto scaling group.
+
+step-3 check in ec2 instances that two instances will be created by Auto scaling group in both availability zones in two private subnets
+
+step -4 create a bastion host name instance as bastion-host i,e ec2 instance in the cloud in a public subnet of VPC
+
+step -5 copy the login key pair of private subnet using scp command(scp -i "C:\Users\Kalyan\downloads\project-1login.pem" "C:\Users\Kalyan\downloads\project-1login.pem" ubuntu@18.188.162.49:/home/ubuntu/).login in bastion-host instance and check if  login key pair is available.
+
+step-6 ssh into ec2 instance of private subnet using login key pair. once you are in private subnet instance deploy a simple python program using python3 -m http.server 8000. on port 8000.
+
+step-7 To access to private using bastion host we need load balance to allow traffic to private subnet. to create a load balance go to ec2 and find loadbalancer and click on create load balancer then first create the target group that means configuring load balancer where to send the requests the target should be private subnet in both availability zone to access the application in private subnet using the public ip address of bastion host.
+
+if you are not able to access your application in private subnet that is because the bastion host instance or load balancer is not accepting traffic from port 80 that is http port .
+ step-8 configure port 80 on bastion host instance .
+the python application is accessible you have built a VPC with application in private subnet not accessible to internet accessed with bastion host or jump server with load balancer
+ 
